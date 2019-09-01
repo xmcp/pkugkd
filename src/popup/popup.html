@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <title>gkd</title>
+    <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+    <div id="main-ui">
+        <p id="status" style="background-color: var(--bg-invalid)">
+            <kbd data-key=" ">Space</kbd>
+            <span id="log">正在初始化……</span>
+        </p>
+        <div id="devices-container"></div>
+    </div>
+    <div id="goto-settings-container" style="display: none">
+        请先设置您的学号和密码&nbsp;
+        <button id="goto-settings-btn">前往设置</button>
+    </div>
+    <script src="/shared/gateway_api.js"></script>
+    <script src="popup.js"></script>
+</body>
+</html>

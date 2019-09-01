@@ -1,0 +1,46 @@
+{
+    "name": "P大网关 gkd",
+    "version": "1.0",
+    "description": "desc",
+    "homepage_url": "http://s.xmcp.ml/pkugkd/?src=wext_homepage",
+    "icons": {
+        "128": "assets/logo_128.png",
+        "48": "assets/logo_48.png"
+    },
+    "author": "xmcp",
+    
+    "manifest_version": 2,
+    
+    "permissions": [
+        "*://its.pku.edu.cn/*",
+        "webRequest",
+        "webRequestBlocking",
+        "notifications",
+        "storage"
+    ],
+    "content_security_policy":
+        "default-src 'self' https://*.cnzz.com; frame-src http://s.xmcp.ml https://s.xmcp.ml; img-src data: http://s.xmcp.ml https://s.xmcp.ml https://*.cnzz.com; object-src 'self'; connect-src http://s.xmcp.ml https://s.xmcp.ml https://its.pku.edu.cn https://img.shields.io data:; style-src 'self' 'unsafe-inline'",
+    
+    "options_ui": {
+        "page": "options/options.html",
+        "open_in_tab": false,
+        "chrome_style": true
+    },
+    "browser_action": {
+        "default_icon": "assets/icon_display.png",
+        "default_popup": "popup/popup.html",
+        "default_title": "gkd"
+    },
+    "commands": {
+        "_execute_browser_action": {
+            "suggested_key": {
+                "default": "Alt+W"
+            },
+            "description": "打开主界面"
+        }
+    },
+    
+    "background": {
+        "page": "background/background.html"
+    }
+}
