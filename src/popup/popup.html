@@ -6,11 +6,15 @@
     <link rel="stylesheet" href="popup.css">
 </head>
 <body>
+    <div id="ver-container">
+        <kbd id="global-shortcut" title="可以在一个神奇的地方修改快捷键，找找看？">---</kbd>
+        <span class="mg-left">Project <b>gkd!</b> v<span id="ver">---</span> by @xmcp</span>
+    </div>
     <div id="main-ui">
-        <p id="status" style="background-color: var(--bg-invalid)">
-            <kbd data-key=" ">Space</kbd>
-            <span id="log">正在初始化……</span>
-        </p>
+        <div id="status" style="background-color: var(--bg-invalid)" data-key=" ">
+            <kbd title="一键连网">Space</kbd>
+            <span id="log" class="mg-left">正在初始化……</span>
+        </div>
         <div id="devices-container"></div>
     </div>
     <div id="goto-settings-container" style="display: none">

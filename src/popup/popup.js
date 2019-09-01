@@ -6,6 +6,7 @@ function log(x) {
 }
 
 let username,password;
+let connected=false;
 
 id('goto-settings-btn').addEventListener('click',()=>{
     chrome.runtime.openOptionsPage();
@@ -30,28 +31,30 @@ async function main() {
         id('status').style.backgroundColor='var(--bg-invalid)';
         id('devices-container').textContent='';
 
-        log('正在登录网关……');
+        log('正在登录网关');
         await ipgw.login(username,password);
 
-        log('正在连接网络……');
+        log('正在连接网络');
         let ip,conn_status;
         try {
             ip=await ipgw.connect();
-            conn_status='连接成功';
+            conn_status=`已连接 (${ip})`;
+            connected=true;
             id('status').style.backgroundColor='var(--bg-success)';
         } catch(e) {
             ip=null;
-            conn_status=e;
+            conn_status=e.message||e;
+            connected=false;
             id('status').style.backgroundColor='var(--bg-failed)';
         }
 
-        log(conn_status+'，获取设备列表……');
+        log(conn_status+'，获取设备列表');
         let devices=await ipgw.get_connections();
         render_devices(devices,ip);
 
         log(conn_status);
     } catch(e) {
-        log(e);
+        log(e.message||e);
     }
     main_running=false;
 }
@@ -66,6 +69,8 @@ function display_time(time) {
     else if(ago_s<86400*360) return `${Math.floor(ago_s/86400)}天小时前`;
     else return `${time.getFullYear()}-${time.getMonth()+1}-${time.getDate()}`;
 }
+
+let reconnect_timer=null;
 
 function render_devices(devices,current_ip) {
     function _elem(tagname,content,attrs=[],listeners=[]) {
@@ -97,37 +102,48 @@ function render_devices(devices,current_ip) {
     devices.forEach(({ip,position,identifier,time},idx)=>{
         let row_container=document.createElement('div');
 
-        let row=document.createElement('div');
-        row.className='device-row'+(ip===current_ip ? ' current-device' : '');
-        let discon_log=document.createElement('div');
-        discon_log.className='device-discon-log';
-        row_container.appendChild(row);
-        row_container.appendChild(discon_log);
-
         async function do_disconnect() {
             row_container.classList.add('device-disconnect');
             discon_log.textContent='正在断开 '+ip;
             try {
                 await ipgw.disconnect(ip);
                 discon_log.textContent='已断开 '+ip;
+
+                if(!connected && devices.length===4) {
+                    if(reconnect_timer) clearTimeout(reconnect_timer);
+                    reconnect_timer=setTimeout(main,500);
+                }
             } catch(e) {
-                discon_log.textContent=e;
+                discon_log.textContent=e.message||e;
             }
         }
 
-        row.appendChild(_elem('kbd',idx+1,[
+        let row=_elem('div','',[
+            ['class','device-row'+(ip===current_ip ? ' current-device' : '')],
             ['data-key',''+(idx+1)],
-            ['class','discon-btn'],
         ],[
             ['click',do_disconnect],
+        ]);
+        let discon_log=_elem('div','',[
+            ['class','device-discon-log'],
+        ]);
+        row_container.appendChild(row);
+        row_container.appendChild(discon_log);
+
+        row.appendChild(_elem('kbd',idx+1,[
+            ['class','discon-btn'],
+            ['title','断开 '+ip],
         ]));
         row.appendChild(_elem('span',display_time(new Date(time)),[
             ['title',time],
+            ['class','mg-left'],
         ]));
         row.appendChild(_elem('span',identifier,[
-            ['title',ip],
+            ['class','mg-left'],
         ]));
-        row.appendChild(_elem('span','@'+position));
+        row.appendChild(_elem('span','@'+position,[
+            ['class','mg-left'],
+        ]));
 
         container.appendChild(row_container);
     });
@@ -144,4 +160,13 @@ chrome.storage.sync.get(['username','password'],(res)=>{
         main();
         document.querySelector('[data-key=" "]').addEventListener('click',main);
     }
+});
+
+id('ver').textContent=chrome.runtime.getManifest().version;
+
+chrome.commands.getAll((cmds)=>{
+    cmds.forEach((cmd)=>{
+        if(cmd.name==='_execute_browser_action')
+            id('global-shortcut').textContent=cmd.shortcut;
+    })
 });

@@ -15,6 +15,7 @@ let ipgw={
     },
 
     connect: ()=>{ // resolve ip if connect success, reject if not
+        //return fetch(chrome.runtime.getURL('/shared/mock_open.html'))
         return fetch('https://its.pku.edu.cn/netportal/ITSipgw?cmd=open&type=fee')
             .then(res=>res.text())
             .then((src)=>{
@@ -49,7 +50,7 @@ let ipgw={
 
     get_connections: ()=>{
         //return fetch(chrome.runtime.getURL('/shared/mock_conn.html'))
-        return fetch('https://its.pku.edu.cn/netportal/ipgwConns.jsp')
+        return fetch('https://its.pku.edu.cn/netportal/ITSipgw?cmd=getconnections')
             .then(res=>res.text())
             .then((src)=>{
                 console.log('get_connections',src);

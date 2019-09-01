@@ -1,13 +1,15 @@
 :root {
     --bg-invalid: #ddd;
     --bg-success: #cdf;
-    --bg-failed: #fdc;
+    --bg-failed: #fcc;
+    --bg-highlight: #ddd;
 }
 
 body {
-    min-width: 350px;
+    min-width: 360px;
     margin: 0;
     padding: 0;
+    font-size: .85rem;
 }
 
 p {
@@ -35,8 +37,23 @@ kbd { /* stolen from github */
     cursor: pointer;
 }
 
+.mg-left {
+    margin-left: 1em;
+}
+
 kbd.discon-btn::before {
     content: '断开 ';
+    font-size: .8em;
+    vertical-align: .1em;
+}
+
+#ver-container {
+    margin: .6em 1em;
+}
+
+#global-shortcut:empty::before {
+    content: '未设置快捷键';
+    opacity: .6;
     font-size: .8em;
     vertical-align: .1em;
 }
@@ -50,9 +67,7 @@ kbd.discon-btn::before {
     padding: .5em;
     margin: .5em;
     border-radius: 3px;
-}
-#status span {
-    margin-left: 1em;
+    transition: background-color .15s ease-out;
 }
 
 #devices-container:not(:empty) {
@@ -62,14 +77,11 @@ kbd.discon-btn::before {
 .device-container-empty {
     text-align: center;
     line-height: 2em;
+    opacity: .6;
 }
 
 .current-device {
-    background-color: var(--bg-success);
-}
-
-.device-row span {
-    margin-left: 1em;
+    background-color: var(--bg-highlight);
 }
 
 .device-row, .device-discon-log {
