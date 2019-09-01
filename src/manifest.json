@@ -1,5 +1,5 @@
 {
-    "name": "P大网关 gkd",
+    "name": "P大网关 gkd!",
     "version": "1.0",
     "description": "desc",
     "homepage_url": "http://s.xmcp.ml/pkugkd/?src=wext_homepage",
@@ -29,7 +29,7 @@
     "browser_action": {
         "default_icon": "assets/icon_display.png",
         "default_popup": "popup/popup.html",
-        "default_title": "gkd"
+        "default_title": "gkd!"
     },
     "commands": {
         "_execute_browser_action": {
@@ -42,5 +42,11 @@
     
     "background": {
         "page": "background/background.html"
+    },
+    
+    "browser_specific_settings": {
+        "gecko": {
+            "id": "pkugkd@s.xmcp.ml"
+        }
     }
 }

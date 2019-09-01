@@ -16,6 +16,13 @@ id('password-form').addEventListener('submit',(e)=>{
     let username=id('username').value;
     let password=id('password').value;
 
+    if(!username && !password) {
+        chrome.storage.sync.remove(['username','password'], ()=>{
+            log('已清除');
+        });
+        return;
+    }
+
     log('正在检验密码……');
     ipgw.login(username,password)
         .then(()=>{

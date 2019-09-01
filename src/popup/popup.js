@@ -60,6 +60,7 @@ async function main() {
 }
 
 function display_time(time) {
+    if(!time) return '无效时间';
     let ago_s=Math.floor(((+new Date())-time)/1000);
     if(ago_s<-180) return '将来';
     else if(ago_s<60) return '现在';
@@ -96,7 +97,7 @@ function render_devices(devices,current_ip) {
     devices.sort((a,b)=>{
         if(a.ip===current_ip) return -1;
         else if(b.ip===current_ip) return 1;
-        else return (+new Date(b.time))-(+new Date(a.time));
+        else return (+parse_datetime(b.time))-(+parse_datetime(a.time));
     });
 
     devices.forEach(({ip,position,identifier,time},idx)=>{
@@ -134,7 +135,7 @@ function render_devices(devices,current_ip) {
             ['class','discon-btn'],
             ['title','断开 '+ip],
         ]));
-        row.appendChild(_elem('span',display_time(new Date(time)),[
+        row.appendChild(_elem('span',display_time(parse_datetime(time)),[
             ['title',time],
             ['class','mg-left'],
         ]));
