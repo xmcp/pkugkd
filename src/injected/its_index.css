@@ -1,0 +1,33 @@
+.gkd-injected-login-banner {
+    box-sizing: border-box;
+    font-size: 1.3rem;
+    position: absolute;
+    top: 3rem;
+    width: 16em;
+    left: calc(50% - 8em);
+    z-index: 12345;
+    padding: 1rem;
+    border-radius: .5rem;
+    background-color: rgba(48,48,48,.8);
+    color: white;
+    text-align: center;
+    text-shadow: 0 0 5px black;
+    cursor: pointer;
+    transition: opacity .5s linear;
+}
+
+.gkd-injected-login-banner:hover {
+    background-color: #000000;
+}
+
+.gkd-injected-login-banner img {
+    width: 1.5em;
+    height: 1.5em;
+    margin-right: .5em;
+    vertical-align: middle;
+}
+
+.gkd-injected-login-banner-disabled {
+    opacity: 0;
+    pointer-events: none;
+}
