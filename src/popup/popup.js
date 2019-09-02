@@ -7,6 +7,10 @@ function log(x) {
 
 let username,password;
 let connected=false;
+let next_url=new URL(location.href).searchParams.get('auto_redirect');
+
+if(next_url)
+    id('next-url').textContent='连接后将跳转到 '+next_url;
 
 id('goto-settings-btn').addEventListener('click',()=>{
     chrome.runtime.openOptionsPage();
@@ -46,6 +50,11 @@ async function main() {
             conn_status=e.message||e;
             connected=false;
             id('status').style.backgroundColor='var(--bg-failed)';
+        }
+
+        if(connected && next_url) {
+            id('next-url').textContent='正在跳转到 '+next_url;
+            location.replace(next_url);
         }
 
         log(conn_status+'，获取设备列表');
@@ -110,7 +119,7 @@ function render_devices(devices,current_ip) {
                 await ipgw.disconnect(ip);
                 discon_log.textContent='已断开 '+ip;
 
-                if(!connected && devices.length===4) {
+                if(!connected) {
                     if(reconnect_timer) clearTimeout(reconnect_timer);
                     reconnect_timer=setTimeout(main,500);
                 }

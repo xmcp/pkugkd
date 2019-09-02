@@ -7,10 +7,16 @@
 
 body {
     min-width: 360px;
-    margin: 0;
+    max-width: 600px;
+    margin: auto;
     padding: 0;
-    font-size: .85rem;
+    font-size: .8rem;
     overflow-y: hidden;
+}
+@media screen and (min-width: 500px) {
+    body {
+        font-size: .9rem;
+    }
 }
 
 p {
@@ -57,6 +63,10 @@ kbd.discon-btn::before {
     opacity: .6;
     font-size: .8em;
     vertical-align: .1em;
+}
+
+#next-url {
+    font-weight: bold;
 }
 
 #goto-settings-container {

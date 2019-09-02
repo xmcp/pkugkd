@@ -15,6 +15,7 @@
         "*://its.pku.edu.cn/*",
         "webRequest",
         "webRequestBlocking",
+        "webNavigation",
         "notifications",
         "storage"
     ],
