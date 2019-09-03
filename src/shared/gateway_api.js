@@ -102,7 +102,6 @@ let ipgw={
 
 function parse_datetime(s) { // 2019-08-31 14:42:47
     let res=/^\s*(\d+)-(\d+)-(\d+) (\d+):(\d+):(\d+)\s*$/.exec(s);
-    console.log(s,res);
     if(!res) return null;
 
     let [_full,y,m,d,H,M,S]=res.map((num)=>parseInt(num,10));

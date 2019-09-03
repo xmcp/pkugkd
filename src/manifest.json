@@ -1,6 +1,6 @@
 {
     "name": "P大网关 gkd!",
-    "version": "1.1",
+    "version": "1.2",
     "description": "北京大学IP网关 for Humans",
     "homepage_url": "http://s.xmcp.ml/pkugkd/?src=wext_homepage",
     "icons": {
@@ -15,7 +15,6 @@
         "*://its.pku.edu.cn/*",
         "webRequest",
         "webRequestBlocking",
-        "webNavigation",
         "notifications",
         "storage"
     ],
@@ -58,7 +57,7 @@
             "css": [
                 "injected/its_index.css"
             ],
-            "run_at": "document_end"
+            "run_at": "document_start"
         }
     ],
 

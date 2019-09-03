@@ -1,9 +1,19 @@
+let next_url=new URL(location.href).searchParams.get('whereto');
+if(next_url && next_url.indexOf('http')===0) {
+    chrome.runtime.sendMessage({
+        type: 'its_quickconnect',
+        redirect_url: next_url,
+    });
+    location.replace('/favicon.ico'); // prevent login page loading before redirected from background script
+}
+
 let disabled=false;
 
 function do_quickconnect() {
     if(!disabled)
         chrome.runtime.sendMessage({
             type: 'its_quickconnect',
+            redirect_url: 'https://its.pku.edu.cn/netportal/myits.jsp',
         });
 }
 
@@ -35,4 +45,7 @@ function on_keydown(e) {
     }
 }
 
-document.body.appendChild(elem);
+document.addEventListener('DOMContentLoaded',()=>{
+    document.body.appendChild(elem);
+    console.log('gkd injected');
+});

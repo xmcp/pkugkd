@@ -8,9 +8,17 @@ function log(x) {
 let username,password;
 let connected=false;
 let next_url=new URL(location.href).searchParams.get('auto_redirect');
+let next_url_elem=null;
 
-if(next_url)
-    id('next-url').textContent='连接后将跳转到 '+next_url;
+if(next_url && next_url.indexOf('http')!==0) // avoid xss
+    next_url=null;
+
+if(next_url) {
+    next_url_elem=document.createElement('a');
+    next_url_elem.textContent=next_url;
+    next_url_elem.href=next_url;
+    id('next-url-container').appendChild(next_url_elem);
+}
 
 id('goto-settings-btn').addEventListener('click',()=>{
     chrome.runtime.openOptionsPage();
@@ -53,7 +61,7 @@ async function main() {
         }
 
         if(connected && next_url) {
-            id('next-url').textContent='正在跳转到 '+next_url;
+            next_url_elem.textContent=next_url+'（正在跳转）';
             location.replace(next_url);
         }
 
@@ -121,7 +129,7 @@ function render_devices(devices,current_ip) {
 
                 if(!connected) {
                     if(reconnect_timer) clearTimeout(reconnect_timer);
-                    reconnect_timer=setTimeout(main,500);
+                    reconnect_timer=setTimeout(main,350);
                 }
             } catch(e) {
                 discon_log.textContent=e.message||e;

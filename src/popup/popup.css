@@ -24,6 +24,12 @@ p {
     margin: 0;
 }
 
+a {
+    text-decoration: none;
+    cursor: pointer;
+    color: #00c;
+}
+
 code, kbd, .code {
     font-family: Consolas, Courier, monospace;
 }
@@ -42,6 +48,11 @@ kbd { /* stolen from github */
 
 [data-key] {
     cursor: pointer;
+}
+
+[data-key]:hover kbd {
+    background-color: #e3e3e3;
+    text-shadow: 0 0 2px white;
 }
 
 .mg-left {
@@ -65,8 +76,12 @@ kbd.discon-btn::before {
     vertical-align: .1em;
 }
 
-#next-url {
+#next-url-container {
     font-weight: bold;
+}
+
+#next-url-container:not(:empty)::before {
+    content: '连接后将跳转到 ';
 }
 
 #goto-settings-container {
