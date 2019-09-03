@@ -1,6 +1,6 @@
 {
     "name": "P大网关 gkd!",
-    "version": "1.2",
+    "version": "1.2.1",
     "description": "北京大学IP网关 for Humans",
     "homepage_url": "http://s.xmcp.ml/pkugkd/?src=wext_homepage",
     "icons": {
@@ -18,8 +18,6 @@
         "notifications",
         "storage"
     ],
-    "content_security_policy":
-        "default-src 'self' https://*.cnzz.com; frame-src http://s.xmcp.ml https://s.xmcp.ml; img-src data: http://s.xmcp.ml https://s.xmcp.ml https://*.cnzz.com; object-src 'self'; connect-src http://s.xmcp.ml https://s.xmcp.ml https://its.pku.edu.cn https://img.shields.io data:; style-src 'self' 'unsafe-inline'",
     
     "options_ui": {
         "page": "options/options.html",
@@ -67,7 +65,8 @@
     
     "browser_specific_settings": {
         "gecko": {
-            "id": "pkugkd@s.xmcp.ml"
+            "id": "pkugkd@s.xmcp.ml",
+            "update_url": "https://s.xmcp.ml/pkugkd/firefox_updates.json"
         }
     }
 }
