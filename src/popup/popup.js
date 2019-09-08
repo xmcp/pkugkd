@@ -84,7 +84,7 @@ function display_time(time) {
     else if(ago_s<3600) return `${Math.floor(ago_s/60)}分钟前`;
     else if(ago_s<86400) return `${Math.floor(ago_s/3600)}小时前`;
     else if(ago_s<86400*7) return `${Math.floor(ago_s/86400)}天${Math.floor((ago_s%86400)/3600)}小时前`;
-    else if(ago_s<86400*360) return `${Math.floor(ago_s/86400)}天小时前`;
+    else if(ago_s<86400*360) return `${Math.floor(ago_s/86400)}天前`;
     else return `${time.getFullYear()}-${time.getMonth()+1}-${time.getDate()}`;
 }
 
